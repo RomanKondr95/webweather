@@ -27,11 +27,14 @@
             
             <div class="col-5 offset-1">
                 <h1 class="mb-4">Погода в вашем городе</h1>
-                <form action="">
-                    <label for="city">Город</label>
-                    <input type="text" id="city" class="form-control" name="city" placeholder="Введите город">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <!-- <label for="city">Город</label> -->
+                    {{ form.name }}
                     <input type="submit" name="send" value="Узнать" class="btn btn-danger mt-3">
+
                 </form>
+                
             </div>
         
             

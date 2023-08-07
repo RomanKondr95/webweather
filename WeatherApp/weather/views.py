@@ -1,10 +1,15 @@
 from django.shortcuts import render
 import requests
 from .models import City
+from .forms import CityForm
 def index(request):
     appid = 'f0267f73b973e2f7cc32b86b7c1f58e6'
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=' + appid
     # city = 'Cherepovets'
+    if(request.method == 'POST'):
+        form = CityForm(request.POST)
+        form.save()
+    form = CityForm()
     cities = City.objects.all()
     all_cities = []
     for city in cities:
@@ -15,6 +20,6 @@ def index(request):
             'icon': response["weather"][0]["icon"]
         }
         all_cities.append(city_info)
-    context = {'all_info': all_cities}
+    context = {'all_info': all_cities,'form': form}
 
     return render(request, 'weather/index.html',context)
